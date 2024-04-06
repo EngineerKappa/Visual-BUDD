@@ -75,10 +75,12 @@ void scene_test_1()
 int main()
 {
 	SPR_init();
+	input_init();
 	BG_init();
 	scene_init();
 	TEXTBOX_init();
 	portrait_init();
+
 	
 	VDP_loadFont(custom_font.tileset, DMA);
 	VDP_setTextPlane(BG_B);

@@ -8,6 +8,7 @@ IMAGE bg2 "BGOffice.png" BEST ALL
 IMAGE frame "textboxframe.png" BEST ALL
 
 SPRITE textbox_arrow "textboxarrow.png" 1 1 FAST 15
+SPRITE mouse_cursor "mousecursor.png" 2 2 FAST  15
 
 
 IMAGE portrait_eris_1 "portraiteris1.png" FAST ALL

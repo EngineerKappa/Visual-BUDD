@@ -7,6 +7,7 @@ extern const Image bg1;
 extern const Image bg2;
 extern const Image frame;
 extern const SpriteDefinition textbox_arrow;
+extern const SpriteDefinition mouse_cursor;
 extern const Image portrait_eris_1;
 extern const SpriteDefinition portrait_eris1_blink;
 extern const SpriteDefinition portrait_eris1_mouth;
