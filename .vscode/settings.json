@@ -1,0 +1,22 @@
+{ 
+    "C_Cpp.default.includePath": ["${env:GDK}\\inc",
+        "${env:GDK}\\res",
+    "res",
+    "inc"
+],
+"files.associations": {
+    "gfx.h": "c",
+    "sound.h": "c",
+    "font.h": "c",
+    "genesis.h": "c",
+    "input.h": "c",
+    "textbox.h": "c",
+    "stdio.h": "c",
+    "background.h": "c",
+    "portrait.h": "c",
+    "scene.h": "c",
+    "string.h": "c",
+    "xlocale": "c",
+    "shared.h": "c"
+}
+}

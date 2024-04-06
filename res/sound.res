@@ -1,0 +1,1 @@
+XGM music "music.vgm"
