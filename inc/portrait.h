@@ -8,17 +8,29 @@
 #define PORTRAIT_Y_DEFAULT 0
 #define PORTRAIT_X_CENTER 64
 
+struct AnimRegion
+{
+    u16 destination_x;
+    u16 destination_y ;
+    u16 source_x;
+    u16 source_y;
+    u8 width;
+    u8 height;
+    u8 frames;
+    u8 frame_delay;
+    u8 current_frame;
+    u8 frame_wait;
+};
+
 struct Portrait
 {
     Image image;
     u16 x;
     u16 y;
-    u16 blink_x;
-    u16 blink_y;
-    u16 mouth_x;
-    u16 mouth_y;
-    bool has_mouth;
-    bool has_eyes;
+    struct AnimRegion blink_anim;
+    struct AnimRegion talk_anim;
+    struct AnimRegion passive_anim;
+
     u8 map_width;
     u8 map_height;
     u16 tileset_ind;
@@ -67,6 +79,8 @@ void animateBUDD();
 void portrait_process();
 void portrait_switch(enum ACTOR actor, enum POSE pose);
 void portrait_switch_state();
+struct AnimRegion portrait_anim_init(u8 width, u8 height,u8 frames, u16 source_x, u16 source_y, u16 destination_x, u16 destination_y,u8 frame_delay);
+void portrait_anim_set_frame(u8 slot, struct AnimRegion *region, u8 frame);
 
 
 #endif // _PORTRAIT_H_

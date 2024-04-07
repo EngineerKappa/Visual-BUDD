@@ -57,80 +57,76 @@ void portrait_retrieve(enum ACTOR actor, enum POSE pose)
 			
 			PAL_fadeInPalette(2,portrait_list[i].image.palette->data,8,TRUE);
 			VDP_setTileMapEx(BG_A,portrait_list[i].image.tilemap,TILE_ATTR_FULL(PAL2, false, false, false, portrait_list[i].tileset_ind),0,0,0,0,portrait_list[i].map_width,portrait_list[i].map_height,DMA_QUEUE);
+			
 		}
 	}
 }
 
+struct AnimRegion portrait_anim_init(u8 width, u8 height,u8 frames, u16 source_x, u16 source_y, u16 destination_x, u16 destination_y,u8 frame_delay)
+{
+	struct AnimRegion _region;
+	_region.width=width;
+	_region.height=height;
+	_region.frames=frames;
+	_region.source_x=source_x;
+	_region.source_y=source_y;
+	_region.destination_x=destination_x;
+	_region.destination_y=destination_y;
+	_region.frame_delay=frame_delay;
+
+	return _region;
+}
+
 void portrait_preload(u8 slot, enum ACTOR actor, enum POSE pose)
 {
-	if (portrait_list[slot].actor == actor && portrait_list[slot].pose == pose)
-	return;
+	struct Portrait *_pslot = &portrait_list[slot];
+
+	if (_pslot->actor == actor && _pslot->pose == pose)
+	return;	
 
 	if (slot == 0)
 		VRAM_ind=portrait_VRAM_ind;
 
-	portrait_list[slot].actor=actor;
-	portrait_list[slot].pose=pose;
-	
-	
+	_pslot->actor=actor;
+	_pslot->pose=pose;
 
 	switch (actor)
     {
     case ERIS:
-		portrait_list[slot].x = PORTRAIT_X_CENTER_BUDD;
-		portrait_list[slot].y = PORTRAIT_Y_DEFAULT;
-		portrait_list[slot].map_width = 27;
-		portrait_list[slot].map_height = 20;
-	    portrait_list[slot].blink_y = 48; //Relative to the sprite itself
-        portrait_list[slot].mouth_x = 96;
-	    portrait_list[slot].mouth_y = 64;
-		portrait_list[slot].image=portrait_eris_1;
-		portrait_list[slot].portrait_budd=BOXER;
-		
-        //s_portrait_blink= SPR_addSprite(&portrait_eris1_blink,portrait_x+portrait_blink_x,portrait_y+portrait_blink_y, TILE_ATTR(PAL2,false,false,false));
-        //s_portrait_mouth= SPR_addSprite(&portrait_eris1_mouth,portrait_x+portrait_mouth_x,portrait_y+portrait_mouth_y, TILE_ATTR(PAL2,false,false,false));
-		//portrait_budd = BOXER;
-        //portrait_load(portrait_eris_1);
-        //s_portrait_budd= SPR_addSprite(&portrait_boxer,budd_x,budd_y, TILE_ATTR(PAL2,false,false,false));
+		_pslot->x = PORTRAIT_X_CENTER_BUDD;
+		_pslot->y = PORTRAIT_Y_DEFAULT;
+		_pslot->map_width = 27;
+		_pslot->map_height = 20;
+		_pslot->image=portrait_eris_1;
+		_pslot->portrait_budd=BOXER;
+		_pslot->talk_anim=portrait_anim_init(3,2,3,13,20,12,9,5);
         break;
+
     case MAYA:
-		portrait_list[slot].x = PORTRAIT_X_CENTER;
-		portrait_list[slot].y = PORTRAIT_Y_DEFAULT;
-		portrait_list[slot].image=portrait_maya_1;
-		portrait_list[slot].map_width = 27;
-		portrait_list[slot].map_height = 20;
-		portrait_list[slot].portrait_budd=NONE;
-        //portrait_blink_x = 88;
-	    //portrait_blink_y = 48;
-        //portrait_mouth_x = 88;
-        //portrait_mouth_y = 64;
-        //s_portrait_blink= SPR_addSprite(&portrait_maya1_blink,portrait_x+portrait_blink_x,portrait_y+portrait_blink_y, TILE_ATTR(PAL2,false,false,false));
-        //s_portrait_mouth= SPR_addSprite(&portrait_maya1_mouth,portrait_x+portrait_mouth_x,portrait_y+portrait_mouth_y, TILE_ATTR(PAL2,false,false,false));
-	    //portrait_budd = NONE;
-        //portrait_load(portrait_maya_1);
+		_pslot->x = PORTRAIT_X_CENTER;
+		_pslot->y = PORTRAIT_Y_DEFAULT;
+		_pslot->image=portrait_maya_1;
+		_pslot->map_width = 27;
+		_pslot->map_height = 20;
+		_pslot->portrait_budd=NONE;
+		_pslot->talk_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
         break;
 	
 	case CERES:
-		portrait_list[slot].x = PORTRAIT_X_CENTER_BUDD;
-		portrait_list[slot].y = PORTRAIT_Y_DEFAULT;
-		portrait_list[slot].image=portrait_ceres_1;
-		portrait_list[slot].map_width = 27;
-		portrait_list[slot].map_height = 20;
-		portrait_list[slot].portrait_budd=STRATOS;
-		//s_portrait_blink= SPR_addSprite(&portrait_eris1_blink,portrait_x+portrait_blink_x,portrait_y+portrait_blink_y, TILE_ATTR(PAL2,false,false,false));
-		//s_portrait_mouth= SPR_addSprite(&portrait_eris1_mouth,portrait_x+portrait_mouth_x,portrait_y+portrait_mouth_y, TILE_ATTR(PAL2,false,false,false));
-		//SPR_setVisibility(s_portrait_blink,HIDDEN);
-		//SPR_setVisibility(s_portrait_mouth,HIDDEN);
-		//portrait_budd = STRATOS;
-		//portrait_load(portrait_ceres_1);
-		//s_portrait_budd= SPR_addSprite(&portrait_stratos,budd_x,budd_y, TILE_ATTR(PAL2,false,false,false));	
+		_pslot->x = PORTRAIT_X_CENTER_BUDD;
+		_pslot->y = PORTRAIT_Y_DEFAULT;
+		_pslot->image=portrait_ceres_1;
+		_pslot->map_width = 27;
+		_pslot->map_height = 20;
+		_pslot->portrait_budd=STRATOS;
+		_pslot->talk_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
         break;
     default:
         break;
 	}
-	VDP_loadTileSet(portrait_list[slot].image.tileset,VRAM_ind,DMA);
-	portrait_list[slot].tileset_ind=VRAM_ind;
-    VRAM_ind+=portrait_list[slot].image.tileset->numTile;
+	VDP_loadTileSet(_pslot->image.tileset,VRAM_ind,DMA);
+	_pslot->tileset_ind=VRAM_ind;
+    VRAM_ind+=_pslot->image.tileset->numTile;
 }
 
 void portrait_load(Image image)
@@ -144,6 +140,34 @@ void portrait_load(Image image)
 	//PAL_setPalette(PAL2, image.palette->data, DMA);
 	
 	VRAM_ind += image.tileset->numTile;
+}
+
+void portrait_anim_play(u8 slot, struct AnimRegion *region)
+{
+	
+	portrait_anim_set_frame(slot, region, region->current_frame);
+
+	region->frame_wait++;
+	if (region->frame_wait>=region->frame_delay)
+	{
+		region->frame_wait=0;
+		region->current_frame++;
+
+		if (region->current_frame >= region->frames)
+		region->current_frame=0;
+	}
+
+	if (region->frame_wait==0)
+	{
+		portrait_anim_set_frame(slot, region, region->current_frame);
+	}
+}
+
+void portrait_anim_set_frame(u8 slot, struct AnimRegion *region, u8 frame)
+{
+	if (region->frames == 0)
+	return;
+	VDP_setTileMapEx(BG_A,portrait_list[slot].image.tilemap,TILE_ATTR_FULL(PAL2, false, false, false, portrait_list[slot].tileset_ind),region->destination_x,region->destination_y,region->source_x + (frame * region->width),region->source_y,region->width,region->height,DMA_QUEUE);
 }
 
 void portrait_free()
@@ -202,14 +226,21 @@ void portrait_switch_state()
 
 void portrait_process()
 {
-	
-	//if (portrait_actor==NONE) //Checks for the main portrait, replace when we get a BUDD variable
-	//return;
-
+	if (portrait_actor == NONE)
+	return;
+	portrait_anim_play(portrait_slot,&portrait_list[portrait_slot].talk_anim);
 	if (palcycle_portrait_enabled) 
 	{
 		palcycle_process(PAL2);
 	}
+	
+	
+
+	if (portrait_mouth_timer>0)
+	portrait_mouth_timer--;
+
+
+	
 	/*
 	
 	portrait_x-=max(portrait_x-portrait_target_x,-portrait_move_speed);
@@ -218,12 +249,6 @@ void portrait_process()
 		sceneLogic();
 
 	portrait_blink_timer--;
-
-	if (portrait_mouth_timer==1)
-		SPR_setAnim(s_portrait_mouth, 0);
-
-	if (portrait_mouth_timer>0)
-	portrait_mouth_timer--;
 
 	if (portrait_blink_timer == 4)
 		SPR_setAnim(s_portrait_blink,1);
