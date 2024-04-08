@@ -82,7 +82,7 @@ void text_clearing()
 	{
 		VDP_fillTileMapRect(BG_B,TILE_ATTR_FULL(PAL0, TRUE, FALSE, FALSE, textbox_VRAM_ind+4),TEXT_START_X,TEXT_START_y,min(text_clear_lines+4,TEXT_CHAR_LIMIT),7);
 		text_clear_lines++;
-		if (text_clear_lines >= TEXT_CHAR_LIMIT)
+		if (text_clear_lines > TEXT_CHAR_LIMIT)
 		{
 			text_clear_lines=0;
 			sceneLogic();
@@ -206,7 +206,7 @@ void updateText(){
 		text_copy_count++;
 		text_line_count++;
 
-		if ((text_line_count>TEXT_CHAR_LIMIT))
+		if ((text_line_count>=TEXT_CHAR_LIMIT))
 		textbox_line_break();
 	}
 	return;
