@@ -81,6 +81,8 @@ void animateBUDD();
 void portrait_process();
 void portrait_switch(enum ACTOR actor, enum POSE pose);
 void portrait_switch_state();
+void portrait_load_BUDD(enum ACTOR budd_actor);
+void portrait_free_BUDD();
 struct AnimRegion portrait_anim_init(u8 width, u8 height,u8 frames, u16 source_x, u16 source_y, u16 destination_x, u16 destination_y,u8 frame_delay);
 void portrait_anim_set_frame(u8 slot, struct AnimRegion *region, u8 frame);
 
