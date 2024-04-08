@@ -27,9 +27,11 @@ struct Portrait
     Image image;
     u16 x;
     u16 y;
-    struct AnimRegion blink_anim;
-    struct AnimRegion talk_anim;
-    struct AnimRegion passive_anim;
+    struct AnimRegion eyes_open_anim;
+    struct AnimRegion eyes_blink_anim;
+    struct AnimRegion mouth_close_anim;
+    struct AnimRegion mouth_talk_anim;
+    struct AnimRegion passive_anim_1;
 
     u8 map_width;
     u8 map_height;

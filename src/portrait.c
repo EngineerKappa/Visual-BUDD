@@ -99,7 +99,12 @@ void portrait_preload(u8 slot, enum ACTOR actor, enum POSE pose)
 		_pslot->map_height = 20;
 		_pslot->image=portrait_eris_1;
 		_pslot->portrait_budd=BOXER;
-		_pslot->talk_anim=portrait_anim_init(3,2,3,13,20,12,9,5);
+		_pslot->passive_anim_1=portrait_anim_init(4,4,4,10,22,7,1,20);
+		
+		_pslot->eyes_open_anim=portrait_anim_init(5,3,1,0,20,11,6,60);
+		_pslot->eyes_blink_anim=portrait_anim_init(5,3,1,5,20,11,6,60);
+		_pslot->mouth_close_anim=portrait_anim_init(3,2,1,10,20,12,9,60);
+		_pslot->mouth_talk_anim=portrait_anim_init(3,2,3,13,20,12,9,4);
         break;
 
     case MAYA:
@@ -109,7 +114,12 @@ void portrait_preload(u8 slot, enum ACTOR actor, enum POSE pose)
 		_pslot->map_width = 27;
 		_pslot->map_height = 20;
 		_pslot->portrait_budd=NONE;
-		_pslot->talk_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
+
+		_pslot->passive_anim_1=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->eyes_open_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->eyes_blink_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->mouth_close_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->mouth_talk_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
         break;
 	
 	case CERES:
@@ -119,7 +129,11 @@ void portrait_preload(u8 slot, enum ACTOR actor, enum POSE pose)
 		_pslot->map_width = 27;
 		_pslot->map_height = 20;
 		_pslot->portrait_budd=STRATOS;
-		_pslot->talk_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->passive_anim_1=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->eyes_open_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->eyes_blink_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->mouth_close_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
+		_pslot->mouth_talk_anim=portrait_anim_init(0,0,0,0,0,0,0,0);
         break;
     default:
         break;
@@ -228,16 +242,44 @@ void portrait_process()
 {
 	if (portrait_actor == NONE)
 	return;
-	portrait_anim_play(portrait_slot,&portrait_list[portrait_slot].talk_anim);
+
+
+	portrait_anim_play(portrait_slot,&portrait_list[portrait_slot].passive_anim_1);
+	switch (portrait_mouth_timer)
+	{
+	case 0:
+		break;
+	case 1:
+		portrait_anim_play(portrait_slot,&portrait_list[portrait_slot].mouth_close_anim);
+		portrait_mouth_timer--;
+		break;
+	default:
+		portrait_anim_play(portrait_slot,&portrait_list[portrait_slot].mouth_talk_anim);
+		portrait_mouth_timer--;
+		break;
+	}
+
+	switch (portrait_blink_timer)
+	{
+	case 0:
+		portrait_anim_play(portrait_slot,&portrait_list[portrait_slot].eyes_open_anim);
+		portrait_blink_timer = random() % ( 600 - 8 + 1) + 8;
+		break;
+	case 4:
+		portrait_anim_play(portrait_slot,&portrait_list[portrait_slot].eyes_blink_anim);
+		portrait_blink_timer--;
+		break;
+	default:
+		portrait_blink_timer--;
+		break;
+	}
+		
+
 	if (palcycle_portrait_enabled) 
 	{
 		palcycle_process(PAL2);
 	}
 	
-	
-
-	if (portrait_mouth_timer>0)
-	portrait_mouth_timer--;
 
 
 	
@@ -255,7 +297,7 @@ void portrait_process()
 	if (portrait_blink_timer == 0)
 	{
 		SPR_setAnim(s_portrait_blink,0);
-		portrait_blink_timer = random() % ( 600 - 8 + 1) + 8;
+		
 	}
 	SPR_setPosition(s_portrait_blink ,portrait_x+portrait_blink_x,-portrait_y+portrait_blink_y);
 	SPR_setPosition(s_portrait_mouth,portrait_x+portrait_mouth_x,-portrait_y+portrait_mouth_y);

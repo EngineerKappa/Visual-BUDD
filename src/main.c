@@ -29,7 +29,7 @@ void sceneLogic()
 	case 7: portrait_switch(CERES,NORMAL); break;
 	case 8: portrait_preload(1,ERIS,NORMAL);VN_Text(CERES,"Portrait 3"); break;
 	case 9: portrait_switch(ERIS,NORMAL); break;
-	case 10: VN_Text(ERIS, "Back to portrait 1!"); break;
+	case 10: VN_Text(ERIS, "Words and words and words and words and words and words and I'm really only saying things just so I can keep talking words and words and words and words!"); break;
 
 	//case 6: portrait_switch(CERES,NORMAL); break;
 	default: PAL_fadeOutPalette(1,16,TRUE);waitMs(300);PAL_fadeOutPalette(2,15,TRUE);waitMs(300);portrait_free();VN_Text(UNKNOWN, "Nothing to see here."); VRAM_ind=0; scene_position=0; break;
