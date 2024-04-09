@@ -61,7 +61,7 @@ void textbox_open()
 
 	if (textbox_shrink_x == 0)
 	{
-		textbox_state = TEXT_DRAWING;
+		textbox_state=IDLE;
 		sceneLogic();
 	}
 

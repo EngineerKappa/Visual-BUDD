@@ -5,21 +5,7 @@
 #include <gfx.h>
 #include <background.h>
 #include <input.h>
-
-void load_actor(enum ACTOR actor, enum POSE pose)
-{
-    /*
-	if ((portrait_actor!=actor) && (portrait_actor!=NONE))
-    {
-       //portrait_free();
-    }
-    
-    portrait_actor = actor;
-    
-
-	portrait_process();
-	*/
-}
+#include <interface.h>
 
 void updateNametag(enum ACTOR actor)
 {
@@ -47,10 +33,40 @@ void scene_init()
 	scene_position = 1;
 	scene_state = TEXTBOX;
 	scene_wait_time = 0;
+	sceneLogic();
+}
+
+void scene_process()
+{
+	switch (scene_state)
+		{
+		case TEXTBOX:
+			textboxProcess();
+			break;
+		case WAIT:
+			wait_process();
+			break;
+		case PORTRAIT_SWITCH:
+			portrait_switch_state();
+			break;
+		case MENU:
+			portrait_switch_state();
+			break;
+		default:
+			break;
+		}
+		portrait_process();
+		animateBUDD();
+}
+
+void VN_OpenMenu()
+{
+	scene_state=MENU;
 }
 
 void VN_Text(enum ACTOR actor, char dialogue[])
 {
+	textbox_state = TEXT_DRAWING;
 	scene_state=TEXTBOX;
 	text_clear();
 	strcpy(str_text, dialogue);

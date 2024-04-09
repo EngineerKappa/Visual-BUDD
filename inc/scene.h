@@ -35,7 +35,8 @@ enum SCENE_STATE {
 	PORTRAIT_MOVE,
 	PORTRAIT_DISAPPEAR,
 	PORTRAIT_SWITCH,
-	WAIT
+	WAIT,
+	MENU
 };
 
 int scene_position;
@@ -52,10 +53,9 @@ void VN_ReloadBG();
 void VN_Wait(u16 time);
 void wait_process();
 void VN_Text(enum ACTOR actor, char dialogue[]);
+void VN_OpenMenu();
 void updateNametag();
-void load_actor(enum ACTOR actor, enum POSE pose);
-
-
+void scene_process();
 //////////////////
 
 

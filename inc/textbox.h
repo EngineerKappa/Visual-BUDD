@@ -11,6 +11,7 @@
 
 enum MENU {
 	DISABLED,
+	IDLE,
   	ENTER,
   	OPENED,
   	TEXT_DRAWING,
