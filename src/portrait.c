@@ -183,7 +183,7 @@ void portrait_free()
 
 void portrait_switch(enum ACTOR actor, enum POSE pose)
 {
-	scene_state=PORTRAIT_SWITCH;
+	scene_state=PORTRAIT_SWITCHING;
 	textbox_state=DISABLED;
 	portrait_switch_actor=actor;
 	portrait_switch_pose=pose;

@@ -1,6 +1,41 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
 
+
+//
+enum COMMAND {
+	TEXT_SHOW,
+	BG_LOAD,
+	BG_FADE_OUT,
+	CHAR_PRELOAD,
+	CHAR_SHOW,
+	CHAR_SWITCH,
+	CHAR_SET_EYES,
+	CHAR_SET_MOUTH,
+	CHAR_SET_PALETTE,
+	CHAR_FADE_IN,
+	CHAR_FADE_OUT,
+	CHAR_MOVE,
+	BUDD_SET_ANIM,
+	VARIABLE_SET,
+	VARIABLE_ADD,
+	FLAG_SET,
+	ITEM_ADD,
+	ITEM_REMOVE,
+	ITEM_SHOW,
+	JUMP_ITEM_CHECK,
+	JUMP_VARIABLE_CHECK,
+	JUMP_FLAG_CHECK,
+	JUMP_CHOICE_LIST,
+	BGM_PLAY,
+	BGM_STOP,
+	SFX_PLAY,
+	WAIT,
+	MENU_RETURN
+};
+
+
+
 //////////////////
 enum ACTOR {
 	NONE,
@@ -25,6 +60,17 @@ enum POSE {
     DETERMINED
 };
 
+struct EventCommand
+{
+    enum COMMAND command;
+    union {
+		Image* bg;
+		enum ACTOR actor;
+		int slot;
+		int time;
+    } params;
+};
+
 enum ACTOR actor_current;
 enum ACTOR portrait_actor;
 enum ACTOR portrait_budd;
@@ -32,10 +78,10 @@ enum ACTOR portrait_budd;
 enum SCENE_STATE {
 	FADEIN,
   	TEXTBOX,
-	PORTRAIT_MOVE,
-	PORTRAIT_DISAPPEAR,
-	PORTRAIT_SWITCH,
-	WAIT,
+	PORTRAIT_MOVING,
+	PORTRAIT_DISAPPEARING,
+	PORTRAIT_SWITCHING,
+	WAITING,
 	MENU
 };
 

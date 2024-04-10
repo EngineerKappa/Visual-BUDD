@@ -43,10 +43,10 @@ void scene_process()
 		case TEXTBOX:
 			textboxProcess();
 			break;
-		case WAIT:
+		case WAITING:
 			wait_process();
 			break;
-		case PORTRAIT_SWITCH:
+		case PORTRAIT_SWITCHING:
 			portrait_switch_state();
 			break;
 		case MENU:
@@ -101,7 +101,7 @@ void VN_MovePortrait(s16 x, s16 y, u8 speed, bool wait)
 	portrait_target_x=x;
 	portrait_target_y=y;
 	if (wait)
-		scene_state=PORTRAIT_MOVE;
+		scene_state=PORTRAIT_MOVING;
 	else
 		sceneLogic();
 }
@@ -113,7 +113,7 @@ void VN_ReloadBG()
 
 void VN_Wait(u16 time)
 {
-	scene_state=WAIT;
+	scene_state=WAITING;
 	scene_wait_time=time;
 }
 
